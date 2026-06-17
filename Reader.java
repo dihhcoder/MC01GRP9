@@ -32,6 +32,10 @@ public class Reader {
             System.out.println("Could not locate file.");
         }
 
+        catch (NumberFormatException e) {
+            System.out.println("Could not read number format.");
+        }
+
         catch(IOException e) {
             System.out.println("Something went wrong.");
         }
