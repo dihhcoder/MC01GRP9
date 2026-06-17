@@ -8,9 +8,11 @@ public class Reader {
     public ArrayList<Route> readRoutes(String filePath) {
 
         ArrayList<Route> routes = new ArrayList<Route>();
-        String line;
 
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String header = reader.readLine();
+            String line;
+
             while((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
 

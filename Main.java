@@ -5,8 +5,10 @@ public class Main {
     public static void main(String[] args) {
         
         Scanner scanner = new Scanner(System.in);
+        Reader reader = new Reader();
         boolean isRunning = true;
         int choice;
+        String filePath;
 
         while (isRunning) {
             System.out.println("+-----------------------------+");
@@ -22,7 +24,14 @@ public class Main {
             switch (choice) {
                 case 1:
                     System.out.println("Starting the simulation...");
-                    // Add simulation logic here
+                    System.out.print("Enter location of map: ");
+                    filePath = scanner.nextLine();
+                    ArrayList<Route> routes = reader.readRoutes(filePath);
+
+                    /*for (int i = 0; i < routes.size(); i++) {
+                        System.out.println("DEBUG: " + routes.get(i).getDistance());
+                    }*/
+
                     break;
                 case 2:
                     isRunning = false;
