@@ -32,7 +32,7 @@ public class Reader {
             System.out.println("Could not locate file.");
         }
 
-        catch(IOException e) {
+        catch(IOException e) {//test
             System.out.println("Something went wrong.");
         }
 
