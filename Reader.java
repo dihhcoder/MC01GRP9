@@ -29,11 +29,11 @@ public class Reader {
         }
 
         catch(FileNotFoundException e) {
-            System.out.println("Could not locate file");
+            System.out.println("Could not locate file.");
         }
 
         catch(IOException e) {
-            System.out.println("Something went wrong");
+            System.out.println("Something went wrong.");
         }
 
         return routes;
