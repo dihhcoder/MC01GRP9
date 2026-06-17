@@ -26,10 +26,11 @@ public class Main {
                     System.out.println("Starting the simulation...");
                     System.out.print("Enter location of map: ");
                     filePath = scanner.nextLine();
-                    ArrayList<Route> routes = reader.readRoutes(filePath);
+                    ArrayList<Map> map = reader.readMap(filePath);
 
-                    /*for (int i = 0; i < routes.size(); i++) {
-                        System.out.println("DEBUG: " + routes.get(i).getDistance());
+                    /* DEBUG CHECKER IF DISTANCES ARE BEING READ
+                    for (int i = 0; i < map.size(); i++) {
+                        System.out.println("DEBUG: " + map.get(i).getDistance());
                     }*/
 
                     break;

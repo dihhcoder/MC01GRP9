@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Reader {
-    public ArrayList<Route> readRoutes(String filePath) {
+    public ArrayList<Map> readMap(String filePath) {
 
-        ArrayList<Route> routes = new ArrayList<Route>();
+        ArrayList<Map> map = new ArrayList<Map>();
 
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String header = reader.readLine();
@@ -22,8 +22,8 @@ public class Reader {
                     String university = data[2].trim();
                     double distance = Double.parseDouble(data[3].trim());
 
-                    Route route = new Route(city, office, university, distance);
-                    routes.add(route);
+                    Map m = new Map(city, office, university, distance);
+                    map.add(m);
                 }
             }
         }
@@ -40,6 +40,6 @@ public class Reader {
             System.out.println("Something went wrong.");
         }
 
-        return routes;
+        return map;
     }
 }
