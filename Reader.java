@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Reader {
     public ArrayList<Route> readRoutes(String filePath) {
+
         ArrayList<Route> routes = new ArrayList<Route>();
         String line;
 
