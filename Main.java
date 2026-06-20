@@ -5,17 +5,17 @@ import java.util.InputMismatchException;
 public class Main {
     public static void main(String[] args) {
 
-        // Order is still temporary
+        // ORDER IS STILL TEMPORARY
         Scanner scanner = new Scanner(System.in);
         Reader reader = new Reader();
         boolean isRunning = true;
-        int choice, choice2;
+        int choice, choice2, choice3;
         String filePath;
         ArrayList<Map> map;
         String prevCity;
         int cityIdx;
         ArrayList<String> postOffices;
-        int i, j, restartChoice;
+        int i, j;
         int mailCount;
         String destination;
         ArrayList<Map> routes;
@@ -65,24 +65,16 @@ public class Main {
                             }
 
                             do {
-                                try {
-                                    System.out.print("Select a city to start: ");
-                                    choice2 = scanner.nextInt();
-                                    scanner.nextLine();
+                                System.out.print("Select a city to start: ");
+                                choice2 = scanner.nextInt();
+                                scanner.nextLine();
 
-                                    if(choice2 <= 0 || choice2 >= cityIdx)
-                                        System.out.println("Invalid Option. Please try again.");
-                                }
-
-                                catch(InputMismatchException e) {
-                                    System.out.println("Invalid Option. Please enter a valid number.");
-                                    scanner.nextLine();
-                                    choice2 = -1;
-                                }
+                                if(choice2 <= 0 || choice2 >= cityIdx)
+                                    System.out.println("Invalid option. Please try again.");
                             } while(choice2 <= 0 || choice2 >= cityIdx);
 
                             System.out.println("We are going to " + postOffices.get(choice2 - 1) + " to deliver the mails.\n");
-                            // (OPTIONAL) Add a display sequence here
+                            // (OPTIONAL) ADD A DISPLAY SEQUENCE HERE
                             System.out.print("Enter the amount of mails: ");
                             mailCount = scanner.nextInt();
                             scanner.nextLine();
@@ -97,7 +89,7 @@ public class Main {
                                     destination = scanner.nextLine();
 
                                     for(j = 0; j < map.size(); j++) {
-                                        if (destination.equals(map.get(j).getUniversity()) && !isFound) {
+                                        if(destination.equals(map.get(j).getUniversity()) && !isFound) {
                                             routes.add(map.get(j));
                                             isFound = true;
                                         }
@@ -113,14 +105,14 @@ public class Main {
                                 System.out.println("(DEBUG) Route " + (i + 1) + ": " + routes.get(i).getUniversity());
                             }*/
 
-                            // Simulation Display Sequence
+                            // SIMULATION DISPLAY SEQUENCE
 
                             do {
                                 System.out.println("Would you like to simulate again? (1 for Yes, 2 for No)");
-                                restartChoice = scanner.nextInt();
+                                choice3 = scanner.nextInt();
                                 scanner.nextLine();
 
-                                switch(restartChoice) {
+                                switch(choice3) {
                                     case 1:
                                         System.out.println("Restarting the simulation...");
                                         break;
@@ -131,7 +123,7 @@ public class Main {
                                     default:
                                         System.out.println("Invalid option. Please try again.");
                                 }
-                            } while(restartChoice != 1 && restartChoice != 2);
+                            } while(choice3 != 1 && choice3 != 2);
                         } while(isRunning);
                         break;
                     case 2:
