@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
+import java.util.ArrayDeque;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,10 +15,12 @@ public class Main {
         String prevCity;
         int cityIdx;
         ArrayList<String> postOffices;
+        ArrayList<String> cityNames;
         int i, j, restartChoice;
         int mailCount;
-        String destination;
+        String destination, currentCity;
         ArrayList<Map> routes;
+        ArrayDeque<String> cities = new ArrayDeque<String>();
 
         while(isRunning) {
             System.out.println("+-----------------------------+");
@@ -33,6 +35,8 @@ public class Main {
             switch (choice) {
                 case 1:
                     do {
+                        routes = new ArrayList<Map>();
+                        cities.clear();
                         System.out.println("Starting the simulation...");
                         System.out.print("Enter location of map: ");
                         filePath = scanner.nextLine();
@@ -47,6 +51,7 @@ public class Main {
                         prevCity = "";
                         cityIdx = 1;
                         postOffices = new ArrayList<String>();
+                        cityNames = new ArrayList<String>();
 
                         for(i = 0; i < map.size(); i++) {
                             String currCity = map.get(i).getCity();
@@ -55,6 +60,7 @@ public class Main {
                             if(!(currCity.equals(prevCity))) {
                                 System.out.println(cityIdx + " - " + currCity);
                                 postOffices.add(postOffice);
+                                cityNames.add(currCity);
                                 cityIdx++;
                             }
 
@@ -70,42 +76,61 @@ public class Main {
                                 System.out.println("Invalid option. Please try again later.");
                         } while(choice2 <= 0 || choice2 >= cityIdx);
 
+                        cities.add(cityNames.get(choice2 - 1));
+
                         System.out.println("We are going to " + postOffices.get(choice2 - 1) + " to deliver the mails.\n");
                         // (OPTIONAL) Add a display sequence here
-                        System.out.print("Enter the amount of mails: ");
-                        mailCount = scanner.nextInt();
-                        scanner.nextLine();
-                        routes = new ArrayList<Map>();
 
-                        for(i = 0; i < mailCount; i++) {
-                            boolean isFound;
+                        
+                        while(!cities.isEmpty()) {
 
-                            do {
-                                isFound = false;
-                                System.out.print("Destination of Mail " + (i + 1) + ": ");
-                                destination = scanner.nextLine();
+                            currentCity = cities.peek();
+                            System.out.print("Enter the amount of mails: ");
+                            mailCount = scanner.nextInt();
+                            scanner.nextLine();
+                           
 
-                                for(j = 0; j < map.size(); j++) {
-                                    if (destination.equals(map.get(j).getUniversity()) && !isFound) {
-                                        routes.add(map.get(j));
-                                        isFound = true;
+                            for(i = 0; i < mailCount; i++) {
+                                boolean isFound;
+
+                                do {
+                                    isFound = false;
+                                    System.out.print("Destination of Mail " + (i + 1) + ": ");
+                                    destination = scanner.nextLine();
+
+                                    for(j = 0; j < map.size(); j++) {
+                                        if (destination.equals(map.get(j).getUniversity()) && !isFound) {
+                                            routes.add(map.get(j));
+                                            isFound = true;
+
+                                            if(!cities.contains(map.get(j).getCity()) && !map.get(j).getCity().equals(currentCity)) {
+                                                cities.add(map.get(j).getCity());
+                                            }
+                                        }
                                     }
+                                    if(!isFound)
+                                        System.out.println("Invalid input. Please try again.");
+                                } while(!isFound);
+                            }
+
+                            currentCity = cities.poll();
+                            /* DEBUG ROUTES READER
+                            for(i = 0; i < routes.size(); i++) {
+                                System.out.println("(DEBUG) Route " + (i + 1) + ": " + routes.get(i).getUniversity());
+                            }*/
+
+                            Sorter.cocktailSort(routes);
+                            System.out.println("Delivering mails to " + currentCity);
+                            for(i = 0; i < routes.size(); i++) {   
+                                if(routes.get(i).getCity().equals(currentCity)) {
+                                    System.out.println("Delivering mail to " + routes.get(i).getUniversity() + " in " + routes.get(i).getCity() + " with distance " + routes.get(i).getDistance());                             
+                                    routes.remove(i);
+                                    i--;
+                                    }  
                                 }
+                            }
+                        
 
-                                if(!isFound)
-                                    System.out.println("Invalid input. Please try again.");
-                            } while(!isFound);
-                        }
-
-                        /* DEBUG ROUTES READER
-                        for(i = 0; i < routes.size(); i++) {
-                            System.out.println("(DEBUG) Route " + (i + 1) + ": " + routes.get(i).getUniversity());
-                        }*/
-
-                        Sorter.cocktailSort(routes);
-                        for(Map route : routes) {
-                            System.out.println("Delivering mail to " + route.getUniversity() + " via " + route.getCity() + " (" + route.getDistance() + " km)");
-                        }
                         
                         // Simulation Display Sequence
                             do {
