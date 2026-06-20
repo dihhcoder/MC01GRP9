@@ -20,7 +20,7 @@ public class Main {
         String destination;
         ArrayList<Map> routes;
 
-        while (isRunning) {
+        while(isRunning) {
             System.out.println("+-----------------------------+");
             System.out.println("|   Welcome to Mailman Sims   |");
             System.out.println("+-----------------------------+");
@@ -32,7 +32,7 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    do{
+                    do {
                         System.out.println("Starting the simulation...");
                         System.out.print("Enter location of map: ");
                         filePath = scanner.nextLine();
@@ -48,7 +48,7 @@ public class Main {
                         cityIdx = 1;
                         postOffices = new ArrayList<String>();
 
-                        for (i = 0; i < map.size(); i++) {
+                        for(i = 0; i < map.size(); i++) {
                             String currCity = map.get(i).getCity();
                             String postOffice = map.get(i).getOffice();
 
@@ -62,20 +62,12 @@ public class Main {
                         }
 
                         do {
-                            try {
-                                System.out.print("Select a city to start: ");
-                                choice2 = scanner.nextInt();
-                                scanner.nextLine();
+                            System.out.print("Select a city to start: ");
+                            choice2 = scanner.nextInt();
+                            scanner.nextLine();
 
-                                if(choice2 <= 0 || choice2 >= cityIdx)
-                                    System.out.println("Invalid Option. Please try again.");
-                            }
-
-                            catch(InputMismatchException e) {
-                                System.out.println("Invalid Option. Please enter a valid number.");
-                                scanner.nextLine();
-                                choice2 = -1;
-                            }
+                            if(choice2 <= 0 || choice2 >= cityIdx)
+                                System.out.println("Invalid option. Please try again later.");
                         } while(choice2 <= 0 || choice2 >= cityIdx);
 
                         System.out.println("We are going to " + postOffices.get(choice2 - 1) + " to deliver the mails.\n");
@@ -93,7 +85,7 @@ public class Main {
                                 System.out.print("Destination of Mail " + (i + 1) + ": ");
                                 destination = scanner.nextLine();
 
-                                for (j = 0; j < map.size(); j++) {
+                                for(j = 0; j < map.size(); j++) {
                                     if (destination.equals(map.get(j).getUniversity()) && !isFound) {
                                         routes.add(map.get(j));
                                         isFound = true;
@@ -102,7 +94,6 @@ public class Main {
 
                                 if(!isFound)
                                     System.out.println("Invalid input. Please try again.");
-
                             } while(!isFound);
                         }
 
@@ -132,8 +123,8 @@ public class Main {
                                     default:
                                         System.out.println("Invalid option. Please try again.");
                                     }
-                            } while (restartChoice != 1 && restartChoice != 2);
-                        } while (restartChoice == 1);
+                            } while(restartChoice != 1 && restartChoice != 2);
+                        } while(restartChoice == 1);
                         break; 
                 case 2:
                     isRunning = false;
