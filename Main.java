@@ -15,7 +15,7 @@ public class Main {
         String prevCity;
         int cityIdx;
         ArrayList<String> postOffices;
-        int i, j;
+        int i, j, restartChoice;
         int mailCount;
         String destination;
         ArrayList<Map> routes;
@@ -25,6 +25,7 @@ public class Main {
             System.out.println("|   Welcome to Mailman Sims   |");
             System.out.println("+-----------------------------+");
 
+            do {
             System.out.println("Please select an option:");
             System.out.println("1. Start Simulation");
             System.out.println("2. Exit");
@@ -33,7 +34,8 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Starting the simulation...");
+                    do{
+                        System.out.println("Starting the simulation...");
                     System.out.print("Enter location of map: ");
                     filePath = scanner.nextLine();
                     map = reader.readMap(filePath);
@@ -113,6 +115,24 @@ public class Main {
 
                     // Simulation Display Sequence
 
+                    do {
+                        System.out.println("Would you like to simulate again? (1 for Yes, 2 for No)");
+                        restartChoice = scanner.nextInt();
+                        scanner.nextLine();
+
+                        switch(restartChoice) {
+                            case 1:
+                                System.out.println("Restarting the simulation...");
+                                break;
+                            case 2:
+                                isRunning = false;
+                                System.out.println("Exiting the program. Goodbye!");
+                                break;
+                            default:
+                                System.out.println("Invalid option. Please try again.");
+                        }
+                        } while (restartChoice != 1 && restartChoice != 2);
+                    } while (isRunning);
                     break;
                 case 2:
                     isRunning = false;
@@ -121,8 +141,46 @@ public class Main {
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
+        }while(choice != 1 && choice != 2);
         }
 
         scanner.close();
     }
+
+
+    public void cocktailSort(ArrayList<Map> routes) {
+        boolean swapped = true;
+        int start = 0;
+        int end = routes.size() - 1;
+        int i;
+
+        while (swapped) {
+            swapped = false;
+
+            for (i = start; i < end; i++) {
+                if (routes.get(i).getDistance() > routes.get(i + 1).getDistance()) {
+                    Map temp = routes.get(i);
+                    routes.set(i, routes.get(i + 1));
+                    routes.set(i + 1, temp);
+                    swapped = true;
+                }
+            }
+
+            if (swapped){
+                swapped = false;
+                end--;
+
+                for (i = end - 1; i >= start; i--) {
+                    if (routes.get(i).getDistance() > routes.get(i + 1).getDistance()) {
+                        Map temp = routes.get(i);
+                        routes.set(i, routes.get(i + 1));
+                        routes.set(i + 1, temp);
+                        swapped = true;
+                    }
+                }
+                start++;
+            }
+        }
+    }
 }
+
