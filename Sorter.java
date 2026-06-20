@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Sorter {
-    public void cocktailSort(ArrayList<Map> m) {
+    public static void cocktailSort(ArrayList<Map> m) {
         boolean swapped = true;
         int start = 0;
         int end = m.size() - 1;
