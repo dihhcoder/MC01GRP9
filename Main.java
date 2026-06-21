@@ -33,7 +33,7 @@ public class Main {
             choice = scanner.nextInt();
             scanner.nextLine();
 
-            switch (choice) {
+            switch(choice) {
                 case 1:
                     System.out.println("Starting the simulation...");
 
@@ -60,7 +60,6 @@ public class Main {
                                 cityNames.add(currCity);
                                 cityIdx++;
                             }
-
                             prevCity = currCity;
                         }
 
