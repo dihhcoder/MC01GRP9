@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.ArrayDeque;
+import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,19 +10,21 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Reader reader = new Reader();
         boolean isRunning = true;
-        int choice, choice2;
+        int choice, choice2, choice3;
         String filePath;
         ArrayList<Map> map;
         String prevCity;
         int cityIdx;
         ArrayList<String> postOffices;
         ArrayList<String> cityNames;
-        int i, j, restartChoice;
+        int i, j;
         int mailCount;
         String destination;
         ArrayList<Map> routes;
+        HashMap<String, String> cityToPost = new HashMap<String, String>();
         ArrayDeque<String> cities = new ArrayDeque<String>();
         String city;
+        String currOffice;
 
         while(isRunning) {
             System.out.println("+-----------------------------+");
@@ -59,12 +62,13 @@ public class Main {
                                 postOffices.add(postOffice);
                                 cityNames.add(currCity);
                                 cityIdx++;
+                                cityToPost.put(currCity, postOffice);
                             }
                             prevCity = currCity;
                         }
 
                         do {
-                            System.out.print("Select a city to start: ");
+                            System.out.print("Select the number of the city to start: ");
                             choice2 = scanner.nextInt();
                             scanner.nextLine();
 
@@ -77,8 +81,8 @@ public class Main {
                         while(!cities.isEmpty()) {
 
                             city = cities.peek();
-                            // LINE BELOW NEEDS FIXING, SHOULD DISPLAY POST OFFICE NAME NOT CITY NAME
-                            System.out.println("We are going to " + cities.peekFirst() + " to deliver the mails.");
+                            currOffice = cityToPost.get(city);
+                            System.out.println("We are going to " + currOffice + " to deliver the mails.\n");
                             // (OPTIONAL) ADD A DISPLAY HERE
                             System.out.print("Enter the amount of mails: ");
                             mailCount = scanner.nextInt();
@@ -123,16 +127,16 @@ public class Main {
                             System.out.println("All mails for " + city + " have been delivered!");
 
                             if(!cities.isEmpty())
-                                System.out.println("Let us go to the next post office.");
-                            else System.out.println("We are officially done for today!");
+                                System.out.println("Let us go to the next post office.\n");
+                            else System.out.println("We are officially done for today!\n");
                         }
 
                         do {
                             System.out.print("Would you like to simulate again? (1 for Yes, 2 for No): ");
-                            restartChoice = scanner.nextInt();
+                            choice3 = scanner.nextInt();
                             scanner.nextLine();
 
-                            switch(restartChoice) {
+                            switch(choice3) {
                                 case 1:
                                     System.out.println("Restarting the simulation...");
                                     break;
@@ -142,8 +146,8 @@ public class Main {
                                 default:
                                     System.out.println("Invalid option. Please try again.");
                             }
-                        } while(restartChoice != 1 && restartChoice != 2);
-                    } while(restartChoice == 1);
+                        } while(choice3 != 1 && choice3 != 2);
+                    } while(choice3 == 1);
                     break;
                 case 2:
                     isRunning = false;
