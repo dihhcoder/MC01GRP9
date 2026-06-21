@@ -6,25 +6,24 @@ import java.util.HashMap;
 public class Main {
     public static void main(String[] args) {
 
-        // Order is still temporary
         Scanner scanner = new Scanner(System.in);
         Reader reader = new Reader();
         boolean isRunning = true;
         int choice, choice2, choice3;
-        String filePath;
         ArrayList<Map> map;
-        String prevCity;
-        int cityIdx;
+        ArrayList<Map> routes;
         ArrayList<String> postOffices;
         ArrayList<String> cityNames;
-        int i, j;
-        int mailCount;
-        String destination;
-        ArrayList<Map> routes;
         HashMap<String, String> cityToPost = new HashMap<String, String>();
         ArrayDeque<String> cities = new ArrayDeque<String>();
+        String filePath;
+        String prevCity;
+        String destination;
         String city;
         String currOffice;
+        int cityIdx;
+        int mailCount;
+        int i, j;
 
         while(isRunning) {
             System.out.println("+-----------------------------+");
@@ -113,13 +112,13 @@ public class Main {
 
                             city = cities.poll();
                             Sorter.cocktailSort(routes);
-                            System.out.println("Delivering mails to " + city);
+                            System.out.println("Delivering mails to " + city + "...");
 
                             for(i = 0; i < routes.size(); i++) {   
                                 if(routes.get(i).getCity().equals(city)) {
-                                    System.out.println("Delivering mail to " + routes.get(i).getUniversity() + " in " + routes.get(i).getCity() + " with distance " + routes.get(i).getDistance());                             
-                                    routes.remove(i);
+                                    System.out.println("Delivering mail to " + routes.get(i).getUniversity() + " in " + routes.get(i).getCity() + " with distance " + routes.get(i).getDistance() + " km");
                                     // SIMULATION DISPLAY SEQUENCE
+                                    routes.remove(i);
                                     i--;
                                 }
                             }
