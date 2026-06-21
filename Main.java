@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.ArrayDeque;
@@ -9,6 +11,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Reader reader = new Reader();
         boolean isRunning = true;
+        boolean isRead = false;
         int choice, choice2, choice3;
         ArrayList<Map> map;
         ArrayList<Map> routes;
@@ -40,11 +43,27 @@ public class Main {
                     System.out.println("Starting the simulation...");
 
                     do {
+                        map = new ArrayList<Map>();
                         routes = new ArrayList<Map>();
                         cities.clear();
-                        System.out.print("Enter location of map: ");
-                        filePath = scanner.nextLine();
-                        map = reader.readMap(filePath);
+
+                        while(!isRead) {
+                            try {
+                                System.out.print("Enter location of map: ");
+                                filePath = scanner.nextLine();
+                                map = reader.readFile(filePath);
+                                isRead = true;
+                            }
+                            catch (FileNotFoundException e) {
+                                System.out.println("Could not locate file. Please try again.");
+                            }
+                            catch (NumberFormatException e) {
+                                System.out.println("Could not read number format. Please try again.");
+                            }
+                            catch (IOException e) {
+                                System.out.println("Could not read file. Please try again.");
+                            }
+                        }
 
                         System.out.println("List of cities:");
                         prevCity = "";
@@ -123,7 +142,7 @@ public class Main {
                                 }
                             }
 
-                            System.out.println("All mails for " + city + " have been delivered!");
+                            System.out.println("\nAll mails for " + city + " have been delivered!");
 
                             if(!cities.isEmpty())
                                 System.out.println("Let us go to the next post office.\n");

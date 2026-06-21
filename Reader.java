@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Reader {
-    public ArrayList<Map> readMap(String filePath) {
-
+    public ArrayList<Map> readFile(String filePath) throws FileNotFoundException, IOException, NumberFormatException {
         ArrayList<Map> map = new ArrayList<Map>();
 
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -26,18 +25,6 @@ public class Reader {
                     map.add(m);
                 }
             }
-        }
-
-        catch(FileNotFoundException e) {
-            System.out.println("Could not locate file.");
-        }
-
-        catch (NumberFormatException e) {
-            System.out.println("Could not read number format.");
-        }
-
-        catch(IOException e) {
-            System.out.println("Something went wrong.");
         }
 
         return map;
