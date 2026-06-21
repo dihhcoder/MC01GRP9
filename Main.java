@@ -18,9 +18,10 @@ public class Main {
         ArrayList<String> cityNames;
         int i, j, restartChoice;
         int mailCount;
-        String destination, currentCity;
+        String destination;
         ArrayList<Map> routes;
         ArrayDeque<String> cities = new ArrayDeque<String>();
+        String city;
 
         while(isRunning) {
             System.out.println("+-----------------------------+");
@@ -34,18 +35,14 @@ public class Main {
 
             switch (choice) {
                 case 1:
+                    System.out.println("Starting the simulation...");
+
                     do {
                         routes = new ArrayList<Map>();
                         cities.clear();
-                        System.out.println("Starting the simulation...");
                         System.out.print("Enter location of map: ");
                         filePath = scanner.nextLine();
                         map = reader.readMap(filePath);
-
-                        /* DEBUG MAP READER(for distance)
-                        for (int i = 0; i < map.size(); i++) {
-                            System.out.println("DEBUG: " + map.get(i).getDistance());
-                        }*/
 
                         System.out.println("List of cities:");
                         prevCity = "";
@@ -78,17 +75,15 @@ public class Main {
 
                         cities.add(cityNames.get(choice2 - 1));
 
-                        System.out.println("We are going to " + postOffices.get(choice2 - 1) + " to deliver the mails.\n");
-                        // (OPTIONAL) Add a display sequence here
-
-                        
                         while(!cities.isEmpty()) {
 
-                            currentCity = cities.peek();
+                            city = cities.peek();
+                            // LINE BELOW NEEDS FIXING, SHOULD DISPLAY POST OFFICE NAME NOT CITY NAME
+                            System.out.println("We are going to " + cities.peekFirst() + " to deliver the mails.");
+                            // (OPTIONAL) ADD A DISPLAY HERE
                             System.out.print("Enter the amount of mails: ");
                             mailCount = scanner.nextInt();
                             scanner.nextLine();
-                           
 
                             for(i = 0; i < mailCount; i++) {
                                 boolean isFound;
@@ -103,7 +98,7 @@ public class Main {
                                             routes.add(map.get(j));
                                             isFound = true;
 
-                                            if(!cities.contains(map.get(j).getCity()) && !map.get(j).getCity().equals(currentCity)) {
+                                            if(!cities.contains(map.get(j).getCity()) && !map.get(j).getCity().equals(city)) {
                                                 cities.add(map.get(j).getCity());
                                             }
                                         }
@@ -113,44 +108,44 @@ public class Main {
                                 } while(!isFound);
                             }
 
-                            currentCity = cities.poll();
-                            /* DEBUG ROUTES READER
-                            for(i = 0; i < routes.size(); i++) {
-                                System.out.println("(DEBUG) Route " + (i + 1) + ": " + routes.get(i).getUniversity());
-                            }*/
-
+                            city = cities.poll();
                             Sorter.cocktailSort(routes);
-                            System.out.println("Delivering mails to " + currentCity);
+                            System.out.println("Delivering mails to " + city);
+
                             for(i = 0; i < routes.size(); i++) {   
-                                if(routes.get(i).getCity().equals(currentCity)) {
+                                if(routes.get(i).getCity().equals(city)) {
                                     System.out.println("Delivering mail to " + routes.get(i).getUniversity() + " in " + routes.get(i).getCity() + " with distance " + routes.get(i).getDistance());                             
                                     routes.remove(i);
+                                    // SIMULATION DISPLAY SEQUENCE
                                     i--;
-                                    }  
                                 }
                             }
-                        
 
-                        
-                        // Simulation Display Sequence
-                            do {
-                                System.out.println("Would you like to simulate again? (1 for Yes, 2 for No)");
-                                restartChoice = scanner.nextInt();
-                                scanner.nextLine();
+                            System.out.println("All mails for " + city + " have been delivered!");
 
-                                switch(restartChoice) {
-                                    case 1:
-                                        System.out.println("Restarting the simulation...");
-                                        break;
-                                    case 2:
-                                        System.out.println("Going Back To The Main Menu...");
-                                        break;
-                                    default:
-                                        System.out.println("Invalid option. Please try again.");
-                                    }
-                            } while(restartChoice != 1 && restartChoice != 2);
-                        } while(restartChoice == 1);
-                        break; 
+                            if(!cities.isEmpty())
+                                System.out.println("Let us go to the next post office.");
+                            else System.out.println("We are officially done for today!");
+                        }
+
+                        do {
+                            System.out.print("Would you like to simulate again? (1 for Yes, 2 for No): ");
+                            restartChoice = scanner.nextInt();
+                            scanner.nextLine();
+
+                            switch(restartChoice) {
+                                case 1:
+                                    System.out.println("Restarting the simulation...");
+                                    break;
+                                case 2:
+                                    System.out.println("Going Back To The Main Menu...");
+                                    break;
+                                default:
+                                    System.out.println("Invalid option. Please try again.");
+                            }
+                        } while(restartChoice != 1 && restartChoice != 2);
+                    } while(restartChoice == 1);
+                    break;
                 case 2:
                     isRunning = false;
                     System.out.println("Exiting the program. Goodbye!");
