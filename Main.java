@@ -39,7 +39,7 @@ public class Main {
                 choice = scanner.nextInt();
                 scanner.nextLine();
 
-                switch (choice) {
+                switch(choice) {
                     case 1:
                         System.out.println("Starting the simulation...");
 
@@ -49,7 +49,7 @@ public class Main {
                             cities.clear();
                             boolean isRead = false;
 
-                            while (!isRead) {
+                            while(!isRead) {
                                 try {
                                     System.out.print("Enter location of map: ");
                                     filePath = scanner.nextLine();
@@ -100,7 +100,7 @@ public class Main {
                                     System.out.println("Invalid input. Please try again.");
                                     scanner.nextLine();
                                 }
-                            } while (!isValidNum);
+                            } while(!isValidNum);
 
                             cities.add(cityNames.get(choice2 - 1));
 
@@ -146,15 +146,14 @@ public class Main {
                                             }
                                         }
 
-                                        if (!isFound)
+                                        if(!isFound)
                                             System.out.println("Invalid input. Please try again.");
-                                    } while (!isFound);
+                                    } while(!isFound);
                                 }
 
                                 city = cities.poll();
                                 Sorter.cocktailSort(routes);
                                 Display.clearScreen();
-                                Display.showStorage(routes);
                                 Display.showRoute(routes);
                                 System.out.println("Delivering mails to " + city + "...");
 
@@ -169,7 +168,7 @@ public class Main {
                                         i--;
                                     }
                                 }
-
+                                Display.showStorage(routes);
                                 System.out.println("\nAll mails for " + city + " have been delivered!");
 
                                 if (!cities.isEmpty())
@@ -192,8 +191,8 @@ public class Main {
                                     default:
                                         System.out.println("Invalid option. Please try again.");
                                 }
-                            } while (choice3 != 1 && choice3 != 2);
-                        } while (choice3 == 1);
+                            } while(choice3 != 1 && choice3 != 2);
+                        } while(choice3 == 1);
                         break;
                     case 2:
                         isRunning = false;

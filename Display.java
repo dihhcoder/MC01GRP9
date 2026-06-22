@@ -60,7 +60,7 @@ public class Display {
 			System.out.print("\r" + line);
 
 			try {
-				Thread.sleep(100);
+				Thread.sleep(200);
 			}
 			catch(InterruptedException e) {
 				e.printStackTrace();
