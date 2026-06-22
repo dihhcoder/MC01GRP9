@@ -6,7 +6,9 @@ Secondly, you must clone the code from the repository by following these steps.
     Step 2: Change your directory on where you would like the files to be located at by putting cd PATH/OF/YOUR/FILE on the command prompt
     Step 3: Clone the code from the repository by typing git clone https://github.com/dihhcoder/MC01GRP9.git on the command prompt
 Next step is to run the program by compiling the code and then running it.
-    Step 1: Verify if you have a JDK installed on your device by typing javac -version on your command prompt. If it returns a version of javac then you have one installed. Else, you must install one from the internet. I would recommend downloading one from Oracle. https://www.oracle.com/java/technologies/downloads/. After installation, verify its existence by typing javac -version on your command prompt.
+    Step 1: Verify if you have a JDK installed on your device by typing javac -version on your command prompt. If it returns a version of javac then you have 
+        one installed. Else, you must install one from the internet. I would recommend downloading one from Oracle. 
+        https://www.oracle.com/java/technologies/downloads/. After installation, verify its existence by typing javac -version on your command prompt.
     Step 2: type javac Main.java on your command prompt. If the program compiles without error then it is safe to run.
     Step 3: Run the program by typing java Main on your command prompt. 
     Step 4: Enjoy Arrow Mail Simulator.
