@@ -110,7 +110,7 @@ public class Main {
                                 mailCount = 0;
                                 city = cities.peek();
                                 currOffice = cityToPost.get(city);
-                                System.out.println("We are going to " + currOffice + " to get the mails for delivery.\n");
+                                System.out.println("We are going to " + currOffice + " to get the mails for delivery.");
 
                                 do {
                                     try {
