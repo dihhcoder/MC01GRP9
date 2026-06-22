@@ -28,14 +28,15 @@ public class Main {
         int i, j;
 
         while(isRunning) {
-            System.out.println("+-----------------------------+");
-            System.out.println("|   Welcome to Mailman Sims   |");
-            System.out.println("+-----------------------------+");
+            System.out.println("+-------------------------------------+");
+            System.out.println("|   Welcome to Arrow Mail Simulator   |");
+            System.out.println("+-------------------------------------+");
 
             try {
                 System.out.println("Please select an option:");
                 System.out.println("1. Start Simulation");
                 System.out.println("2. Exit");
+                System.out.print("Enter your choice: ");
                 choice = scanner.nextInt();
                 scanner.nextLine();
 
@@ -103,14 +104,13 @@ public class Main {
                             } while(!isValidNum);
 
                             cities.add(cityNames.get(choice2 - 1));
-
+                            int instance = 1;
                             while (!cities.isEmpty()) {
                                 boolean isValidCount = false;
                                 mailCount = 0;
                                 city = cities.peek();
                                 currOffice = cityToPost.get(city);
                                 System.out.println("We are going to " + currOffice + " to get the mails for delivery.\n");
-                                // (OPTIONAL) ADD A DISPLAY HERE
 
                                 do {
                                     try {
@@ -118,9 +118,13 @@ public class Main {
                                         mailCount = scanner.nextInt();
                                         scanner.nextLine();
 
-                                        if(mailCount < 0)
+                                        if(mailCount <= 0 && instance == 1)
                                             System.out.println("Invalid input. Please try again.");
-                                        else isValidCount = true;
+                                        else{
+                                            isValidCount = true;
+                                            instance++;
+                                        } 
+                                            
                                     } catch(InputMismatchException e) {
                                         System.out.println("Invalid input. Please try again.");
                                         scanner.nextLine();
@@ -154,7 +158,7 @@ public class Main {
                                 city = cities.poll();
                                 Sorter.cocktailSort(routes);
                                 Display.clearScreen();
-                                Display.showRoute(routes);
+                                Display.showRoute(routes, city);
                                 System.out.println("Delivering mails to " + city + "...");
 
                                 for (i = 0; i < routes.size(); i++) {
@@ -206,7 +210,7 @@ public class Main {
                         break;
                     case 2:
                         isRunning = false;
-                        System.out.println("Exiting the program. Goodbye!");
+                        Display.exitMessage();
                         break;
                     default:
                         System.out.println("Invalid option. Please try again.");
