@@ -61,7 +61,7 @@ public class Display {
 			System.out.print("\r" + line);
 
 			try {
-				Thread.sleep(150);
+				Thread.sleep(150);//test
 			}
 			catch(InterruptedException e) {
 				e.printStackTrace();
