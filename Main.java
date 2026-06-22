@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
         Reader reader = new Reader();
         boolean isRunning = true;
