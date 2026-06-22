@@ -153,12 +153,18 @@ public class Main {
 
                                 city = cities.poll();
                                 Sorter.cocktailSort(routes);
+                                Display.clearScreen();
+                                Display.showStorage(routes);
+                                Display.showRoute(routes);
                                 System.out.println("Delivering mails to " + city + "...");
 
                                 for (i = 0; i < routes.size(); i++) {
                                     if (routes.get(i).getCity().equals(city)) {
+                                        Display.showStorage(routes);
+                                        System.out.println();
                                         System.out.println("Delivering mail to " + routes.get(i).getUniversity() + " in " + routes.get(i).getCity() + " with distance " + routes.get(i).getDistance() + " km");
                                         // SIMULATION DISPLAY SEQUENCE
+                                        Display.animateDelivery(routes.get(i).getUniversity());
                                         routes.remove(i);
                                         i--;
                                     }
