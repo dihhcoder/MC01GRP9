@@ -176,22 +176,32 @@ public class Main {
                                 else System.out.println("We are officially done for today!\n");
                             }
 
-                            do {
-                                System.out.print("Would you like to simulate again? (1 for Yes, 2 for No): ");
-                                choice3 = scanner.nextInt();
-                                scanner.nextLine();
+                            boolean isValidChoice = false;
+                            choice3 = 0;
 
-                                switch (choice3) {
-                                    case 1:
-                                        System.out.println("Restarting the simulation...");
-                                        break;
-                                    case 2:
-                                        System.out.println("Going Back To The Main Menu...");
-                                        break;
-                                    default:
-                                        System.out.println("Invalid option. Please try again.");
+                            do {
+                                try {
+                                    System.out.print("Would you like to simulate again? (1 for Yes, 2 for No): ");
+                                    choice3 = scanner.nextInt();
+                                    scanner.nextLine();
+
+                                    switch (choice3) {
+                                        case 1:
+                                            System.out.println("Restarting the simulation...");
+                                            isValidChoice = true;
+                                            break;
+                                        case 2:
+                                            System.out.println("Going Back To The Main Menu...");
+                                            isValidChoice = true;
+                                            break;
+                                        default:
+                                            System.out.println("Invalid option. Please try again.");
+                                    }
+                                } catch(InputMismatchException e) {
+                                    System.out.println("Invalid input. Please try again.");
+                                    scanner.nextLine();
                                 }
-                            } while(choice3 != 1 && choice3 != 2);
+                            } while(!isValidChoice);
                         } while(choice3 == 1);
                         break;
                     case 2:
